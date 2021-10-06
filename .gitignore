@@ -1,0 +1,24 @@
+# git config --global core.excludesfile ~/.gitignore_global
+
+.DS_Store
+
+*.class
+
+bin/
+.settings/
+
+# IntelliJ
+.idea/
+out/
+*.iml
+*.ipr
+*.iws
+atlassian-ide-plugin.xml
+
+# Maven files
+target/
+
+# Package Files #
+*.jar
+*.war
+*.ear
