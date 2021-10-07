@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS Client
 (
     id         INT IDENTITY (1,1) PRIMARY KEY,
-    first_name VARCHAR(30) NOT NULL,f
+    first_name VARCHAR(30) NOT NULL,
     last_name  VARCHAR(30) NOT NULL
     );
 
@@ -11,11 +11,11 @@ CREATE TABLE IF NOT EXISTS Account
     id        INT IDENTITY (1,1) PRIMARY KEY,
     number    VARCHAR(20) NOT NULL UNIQUE,
     balance   DECIMAL,
-    client_id INT         NOT NULL,
-    FOREIGN KEY (clieidnt_id) REFERENCES Client (id)
+    client_id INT   NOT NULL UNIQUE,
+    FOREIGN KEY (client_id) REFERENCES Client (id)
     );
 -- CREATE UNIQUE index account_number_UINDEX ON Account (number);
-bsa
+
 
 CREATE TABLE IF NOT EXISTS Card
 (

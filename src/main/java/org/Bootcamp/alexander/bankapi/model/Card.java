@@ -16,7 +16,6 @@ public class Card {
     private @JsonProperty("status") Status status; // [ждет активации, активна, закрыта]
     private int accountId;
 
-
     public Card(@JsonProperty("number") String number,
                 @JsonProperty("month") String month,
                 @JsonProperty("year") String year,

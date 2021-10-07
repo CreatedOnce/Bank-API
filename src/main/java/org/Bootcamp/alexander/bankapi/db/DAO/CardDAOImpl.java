@@ -30,7 +30,6 @@ public class CardDAOImpl implements CardDAO {
             ex.printStackTrace();
             // log and throw custom exception
         }
-
     }
 
     // List<Card>

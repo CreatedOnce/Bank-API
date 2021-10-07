@@ -1,18 +1,8 @@
-[
-  {
-    "number": "42024305346286324586",
-    "month": "07",
-    "year": "2028",
-    "code": "353",
-    "balance": 0,
-    "accountId": 1
-  },
-  {
-    "number": "42024305346286345677",
-    "month": "09",
-    "year": "2029",
-    "code": "111",
-    "balance": 2000,
-    "accountId": 2
-  }
-]
+{
+  "number": "42024305346286324586",
+  "month": "07",
+  "year": "2028",
+  "code": "353",
+  "balance": 0,
+  "accountId": 1
+}

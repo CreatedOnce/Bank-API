@@ -97,5 +97,4 @@ public class AccountHandler implements HttpHandler, ResponseSender {
             sendResponse(exchange, 400, "Incorrect method".getBytes(StandardCharsets.UTF_8));
         }
     }
-
 }

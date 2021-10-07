@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class H2JDBCUtils {
-    private static final String jdbcURL = "jdbc:h2:/Users/a19572057/Desktop/Projects/Bank-API/dbBANK/dbBankAPI";
+    private static final String jdbcURL = "jdbc:h2:mem:bankDB;DB_CLOSE_DELAY=-1";
     private static final String jdbcUser = "sa";
     private static final String jdbcPassword = "";
 
@@ -19,5 +19,4 @@ public class H2JDBCUtils {
 
         return connection;
     }
-
 }

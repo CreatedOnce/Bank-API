@@ -74,7 +74,6 @@ public class CardHandler implements HttpHandler, ResponseSender{
                 // If all works correctly
                 response = "Card added.".getBytes(StandardCharsets.UTF_8);
                 sendResponse(exchange, 201, response);
-
             }
         } else {
             sendResponse(exchange, 400, "Incorrect method".getBytes(StandardCharsets.UTF_8));
