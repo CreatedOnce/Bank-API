@@ -1,3 +1,4 @@
+import org.Bootcamp.alexander.bankapi.MainApp;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
@@ -28,10 +29,12 @@ public class UnitTest {
     @BeforeAll
     public static void setUp() throws IOException {
         DBInitializer.init();
+        //MainApp.ServerStarter.start();
     }
 
     @Test
     public void shouldInsertCardTest() throws IOException {
+        DBInitializer.init();
         Card card = new Card(
                 "42024305346286324586", "07", "2028", "242", BigDecimal.ZERO, 1);
         CardService cardService = new CardServiceImpl(new CardDAOImpl());
@@ -60,6 +63,7 @@ public class UnitTest {
 
     @Test
     public void shouldViewCardsTest() throws IOException {
+        DBInitializer.init();
         String actual = "";
         CardService cardService = new CardServiceImpl(new CardDAOImpl());
         try {
@@ -74,6 +78,7 @@ public class UnitTest {
 
     @Test
     public void shouldMakeDepositTest() throws IOException {
+        DBInitializer.init();
         AccountService accountService = new AccountServiceImpl(new AccountDAOImpl());
         Deposit deposit = new Deposit("40804810200003497183", BigDecimal.valueOf(250));
         accountService.topUpAccountBalance(deposit);

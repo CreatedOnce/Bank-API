@@ -6,7 +6,7 @@
 
 bin/
 .settings/
-
+META-INF/
 dbBANK/
 # IntelliJ
 .idea/
@@ -18,8 +18,8 @@ atlassian-ide-plugin.xml
 
 # Maven files
 target/
-
+out/
 # Package Files #
-*.jar
+
 *.war
 *.ear

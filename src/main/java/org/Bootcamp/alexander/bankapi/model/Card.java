@@ -22,7 +22,7 @@ public class Card {
                 @JsonProperty("code") String code,
                 @JsonProperty("balance") BigDecimal balance,
                 @JsonProperty("account_id") int accountId) {
-        this.number = number; // TODO: 19.05.2021 Generate randomly
+        this.number = number;
         this.month = month;
         this.year = year;
         this.code = code;

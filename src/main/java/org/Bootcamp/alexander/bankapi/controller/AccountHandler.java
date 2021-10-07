@@ -18,6 +18,13 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
+/**
+ * @AccountHandler - класс содержащий логику работы
+ * запросов таких как POST, GET для класса Account.
+ *
+ */
+
+
 public class AccountHandler implements HttpHandler, ResponseSender {
     private final AccountService accountService;
 
