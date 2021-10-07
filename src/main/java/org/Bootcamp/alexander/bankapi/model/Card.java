@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ *
+ */
 public class Card {
     private static final AtomicInteger counter = new AtomicInteger(0);
     public final @JsonProperty("id") int id;

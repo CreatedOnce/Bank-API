@@ -6,6 +6,12 @@ import org.Bootcamp.alexander.bankapi.model.Card;
 
 import java.sql.SQLException;
 
+/**
+ * @CardServiceImpl - класс реализующий интерфейс CardService.
+ * Содержащий в себе методы для вставки карт в базу данных.
+ * И для получения списка карт.
+ */
+
 public class CardServiceImpl implements CardService {
     private final CardDAO cardDAO;
 

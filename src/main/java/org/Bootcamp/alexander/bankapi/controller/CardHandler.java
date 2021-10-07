@@ -14,6 +14,12 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
+/**
+ * @AccountHandler - класс содержащий логику работы
+ * запросов таких как POST, GET для класса Card, который в
+ * свою очередь реализует интерфейс CardService.
+ */
+
 public class CardHandler implements HttpHandler, ResponseSender{
     private final CardService cardService;
 
@@ -23,14 +29,14 @@ public class CardHandler implements HttpHandler, ResponseSender{
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        // GET method
+        // GET метод
         if (exchange.getRequestMethod().equals("GET")) {
             // View all cards
             if (exchange.getRequestURI().getPath().equals("/card/view")) {
                 byte[] response;
                 ArrayNode arr;
 
-                // Get cards as array of JSON objects
+                // Получаем карточки как массив JSON обьектов
                 try {
                     arr = cardService.getCards();
                 } catch (SQLException ex) {
@@ -39,19 +45,19 @@ public class CardHandler implements HttpHandler, ResponseSender{
                     return;
                 }
 
-                // If all works correctly
+                // Если все корректно
                 response = arr.toPrettyString().getBytes(StandardCharsets.UTF_8);
                 sendResponse(exchange, 200, response);
             }
         }
-        // POST method
+        // POST метод
         if (exchange.getRequestMethod().equals("POST")) {
-            // Add new card
+            // Добавляем новую карту
             if (exchange.getRequestURI().getPath().equals("/card/order")) {
                 byte[] response;
 
                 try {
-                    Card card = new ObjectMapper().readValue(exchange.getRequestBody(), Card.class); // Get java model from JSON
+                    Card card = new ObjectMapper().readValue(exchange.getRequestBody(), Card.class); // получаем java model from JSON
                     cardService.insertCardInDatabase(card);
                 } catch (JsonMappingException ex) {
                     response = "Wrong number of parameters.".getBytes(StandardCharsets.UTF_8);
@@ -71,7 +77,7 @@ public class CardHandler implements HttpHandler, ResponseSender{
                     return;
                 }
 
-                // If all works correctly
+                // Если все корректно
                 response = "Card added.".getBytes(StandardCharsets.UTF_8);
                 sendResponse(exchange, 201, response);
             }

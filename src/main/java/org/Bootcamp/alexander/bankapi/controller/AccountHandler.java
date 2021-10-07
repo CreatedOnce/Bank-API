@@ -20,10 +20,9 @@ import java.sql.SQLException;
 
 /**
  * @AccountHandler - класс содержащий логику работы
- * запросов таких как POST, GET для класса Account.
- *
+ * запросов таких как POST, GET для класса Account, который в
+ * свою очередь реализует интерфейс AccountService.
  */
-
 
 public class AccountHandler implements HttpHandler, ResponseSender {
     private final AccountService accountService;
@@ -34,14 +33,13 @@ public class AccountHandler implements HttpHandler, ResponseSender {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-        // GET method
+        // GET метод
         if (exchange.getRequestMethod().equals("GET")) {
-            // Check account balance
+            // Проверка баланса аккаунта
             if (exchange.getRequestURI().getPath().equals("/account/balance")) {
                 byte[] response;
 
-                // Get an account number from URL
-                // TODO split by & before this
+                // получаем номер счета по URL
                 String[] arr = exchange.getRequestURI().getQuery().split("=");
                 if (arr.length < 2) {
                     response = "Incorrect query.".getBytes(StandardCharsets.UTF_8);
@@ -68,14 +66,14 @@ public class AccountHandler implements HttpHandler, ResponseSender {
                     return;
                 }
 
-                // If all works correctly
+                // Если все корректно
                 response = balance.toPlainString().getBytes(StandardCharsets.UTF_8);
                 sendResponse(exchange, 200, response);
             }
         }
-        // POST method
+        // POST метод
         if (exchange.getRequestMethod().equals("POST")) {
-            // Top up account
+            // Пополнить
             if (exchange.getRequestURI().getPath().equals("/account/pay")) {
                 byte[] response;
 
@@ -96,7 +94,7 @@ public class AccountHandler implements HttpHandler, ResponseSender {
                     return;
                 }
 
-                // If all works correctly
+                // Если все корректно
                 response = "Balance replenished.".getBytes(StandardCharsets.UTF_8);
                 sendResponse(exchange, 200, response);
             }

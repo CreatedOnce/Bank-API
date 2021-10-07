@@ -9,6 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * @AccountDAOImpl - класс реализующий интерфейс AccountDAO.
+ * Содержащий в себе методы для добавления средств  и получения баланса из базы данных.
+ */
+
 public class AccountDAOImpl implements AccountDAO{
     private final String addMoneyQuery = "UPDATE ACCOUNT SET BALANCE = (BALANCE + ?) " +
             "WHERE NUMBER = ?;";

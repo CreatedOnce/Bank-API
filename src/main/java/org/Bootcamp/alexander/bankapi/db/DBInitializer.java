@@ -8,6 +8,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * @DBInitializer - класс содержащий в себе метод для автозаполнения
+ * базы данных.
+ */
+
 public class DBInitializer {
     private static final String createScriptPath = "src/main/resources/scripts/create_db.sql";
     private static final String fillDbScriptPath = "src/main/resources/scripts/fill_db.sql";

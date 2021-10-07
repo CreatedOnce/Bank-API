@@ -7,6 +7,13 @@ import org.Bootcamp.alexander.bankapi.model.Deposit;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 
+/**
+ * @AccountServiceImpl - класс реализующий интерфейс AccountService.
+ * Так же этот класс содержит в себе методы для пополнения баланса,
+ * для получения баланса.
+ *
+ */
+
 public class AccountServiceImpl implements AccountService {
     AccountDAO accountDAO;
 

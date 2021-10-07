@@ -9,6 +9,11 @@ import org.Bootcamp.alexander.bankapi.model.Card;
 
 import java.sql.*;
 
+/**
+ * @CardDAOImpl - класс реализующий интерфейс CardDAO.
+ * И содержащий в себе методы для создание карты и получения списка карт
+ */
+
 public class CardDAOImpl implements CardDAO {
     private final String createCardQuery = "INSERT INTO CARD (number, month, year, code, account_id) " +
             "VALUES ( ?, ?, ?, ?, ?);";
