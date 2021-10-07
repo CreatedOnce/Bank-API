@@ -26,8 +26,6 @@ public class DBInitializer {
 
             statement.executeUpdate(createQuery);
             statement.executeUpdate(fillQuery);
-            statement.close();
-            connection.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
