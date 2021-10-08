@@ -19,10 +19,26 @@ public class CardDAOImpl implements CardDAO {
             "VALUES ( ?, ?, ?, ?, ?);";
     private final String selectCardInfoQuery = "SELECT id, number from CARD;";
 
+    private final String deleteCardQuery = "DELETE FROM CARD WHERE number = ? ;";
+
     @Override
     public void create(Card card) throws SQLException {
         try (Connection connection = H2JDBCUtils.getConnection();
              PreparedStatement statement = connection.prepareStatement(createCardQuery)) {
+
+            statement.setString(1, card.getNumber());
+            statement.execute();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            // log and throw custom exception
+        }
+    }
+
+    @Override
+    public void deleteCard(Card card) throws SQLException {
+        try (Connection connection = H2JDBCUtils.getConnection();
+             PreparedStatement statement = connection.prepareStatement(deleteCardQuery)) {
 
             statement.setString(1, card.getNumber());
             statement.setString(2, card.getMonth());

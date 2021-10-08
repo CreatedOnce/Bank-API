@@ -27,4 +27,10 @@ public class Account {
         this.clientId = clientId;
         this.id = count.incrementAndGet();
     }
+
+    public String getNumber() { return number; }
+
+    public BigDecimal getBalance() { return balance; }
+
+    public int getClientId() { return clientId; }
 }

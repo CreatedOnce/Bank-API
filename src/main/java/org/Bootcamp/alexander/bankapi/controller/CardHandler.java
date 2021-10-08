@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.Bootcamp.alexander.bankapi.exception.AccountNotFoundException;
+import org.Bootcamp.alexander.bankapi.model.Account;
 import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 import org.Bootcamp.alexander.bankapi.model.Card;
 import org.Bootcamp.alexander.bankapi.service.CardService;
@@ -68,7 +70,7 @@ public class CardHandler implements HttpHandler, ResponseSender{
                     sendResponse(exchange, 400, response);
                     return;
                 } catch (JdbcSQLIntegrityConstraintViolationException ex) {
-                    response = "Card with this number doesn't exists.".getBytes(StandardCharsets.UTF_8);
+                    response = "Card with this number exists.".getBytes(StandardCharsets.UTF_8);
                     sendResponse(exchange, 404, response);
                     return;
                 } catch (SQLException ex) {
@@ -80,6 +82,36 @@ public class CardHandler implements HttpHandler, ResponseSender{
                 // Если все корректно
                 response = "Card added.".getBytes(StandardCharsets.UTF_8);
                 sendResponse(exchange, 201, response);
+            }
+        } if (exchange.getRequestMethod().equals("DELETE")) {
+
+            if (exchange.getRequestURI().getPath().equals("/account/delete")) {
+                byte[] response;
+
+                try {
+                    Card card = new ObjectMapper().readValue(exchange.getRequestBody(), Card.class);
+                    cardService.deleteCardFromDataBase(card);
+                } catch (SQLException ex) {
+                    response = ex.getMessage().getBytes(StandardCharsets.UTF_8);
+                    sendResponse(exchange, 500, response);
+                    return;
+                }catch (JsonMappingException ex) {
+                    response = "Wrong number of parameters.".getBytes(StandardCharsets.UTF_8);
+                    sendResponse(exchange, 400, response);
+                    return;
+                } catch (JsonParseException ex) {
+                    response = "Incorrect data.".getBytes(StandardCharsets.UTF_8);
+                    sendResponse(exchange, 400, response);
+                    return;
+                } catch (AccountNotFoundException ex) {
+                    response = "Card already deleted.".getBytes(StandardCharsets.UTF_8);
+                    sendResponse(exchange, 404, response);
+                    return;
+                }
+
+                // Если все корректно
+                response = ("Card "  +"successfully deleted!").getBytes(StandardCharsets.UTF_8);
+                sendResponse(exchange, 200, response);
             }
         } else {
             sendResponse(exchange, 400, "Incorrect method".getBytes(StandardCharsets.UTF_8));

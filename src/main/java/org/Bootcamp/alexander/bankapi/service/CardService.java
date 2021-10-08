@@ -7,5 +7,6 @@ import java.sql.SQLException;
 
 public interface CardService {
     void insertCardInDatabase(Card card) throws SQLException;
+    void deleteCardFromDataBase(Card card) throws SQLException;
     ArrayNode getCards() throws SQLException;
 }

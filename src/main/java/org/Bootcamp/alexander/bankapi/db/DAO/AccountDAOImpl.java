@@ -2,6 +2,7 @@ package org.Bootcamp.alexander.bankapi.db.DAO;
 
 import org.Bootcamp.alexander.bankapi.db.H2JDBCUtils;
 import org.Bootcamp.alexander.bankapi.exception.AccountNotFoundException;
+import org.Bootcamp.alexander.bankapi.model.Account;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -17,8 +18,40 @@ import java.sql.SQLException;
 public class AccountDAOImpl implements AccountDAO{
     private final String addMoneyQuery = "UPDATE ACCOUNT SET BALANCE = (BALANCE + ?) " +
             "WHERE NUMBER = ?;";
+
     private final String getBalanceQuery = "SELECT BALANCE FROM ACCOUNT " +
             "WHERE NUMBER = ?;";
+
+    private final String createAccountQuery = "INSERT INTO ACCOUNT (number, balance, client_id)"+" " +
+            "VALUES ( ?, ?, ?);";
+
+    private final String deleteAccountQuery = "DELETE FROM ACCOUNT WHERE client_id = ?";
+
+
+    @Override
+    public void createAccount(Account account) throws SQLException {
+        try(Connection connection = H2JDBCUtils.getConnection();
+        PreparedStatement statement = connection.prepareStatement(createAccountQuery)){
+            statement.setString(1, account.getNumber());
+            statement.setString(2, account.getBalance().toString());
+            statement.setString(3, account.getClientId()+"");
+            statement.execute();
+        } catch (SQLException ex){
+            ex.printStackTrace();
+            //Logs....
+        }
+    }
+
+    @Override
+    public void deleteAccount(Account account) throws SQLException{
+        try(Connection connection = H2JDBCUtils.getConnection();
+            PreparedStatement statement = connection.prepareStatement(deleteAccountQuery)){
+            statement.setString(1, account.getClientId()+"");
+            statement.execute();
+        } catch (SQLException ex){
+            ex.printStackTrace();
+        }
+    }
 
     @Override
     public void addMoney(String number, BigDecimal sum) throws AccountNotFoundException {

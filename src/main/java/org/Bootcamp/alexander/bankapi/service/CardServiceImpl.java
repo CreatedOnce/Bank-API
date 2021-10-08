@@ -23,6 +23,11 @@ public class CardServiceImpl implements CardService {
         cardDAO.create(card);
     }
 
+    @Override
+    public void deleteCardFromDataBase(Card card) throws SQLException{
+        cardDAO.deleteCard(card);
+    }
+
     // List<CardInfo>
     @Override
     public ArrayNode getCards() throws SQLException {

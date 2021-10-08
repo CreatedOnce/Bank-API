@@ -3,6 +3,7 @@ package org.Bootcamp.alexander.bankapi.service;
 import org.Bootcamp.alexander.bankapi.db.DAO.AccountDAO;
 import org.Bootcamp.alexander.bankapi.exception.AccountNotFoundException;
 import org.Bootcamp.alexander.bankapi.model.Deposit;
+import org.Bootcamp.alexander.bankapi.model.Account;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -15,10 +16,20 @@ import java.sql.SQLException;
  */
 
 public class AccountServiceImpl implements AccountService {
-    AccountDAO accountDAO;
+    private final AccountDAO accountDAO;
 
     public AccountServiceImpl(AccountDAO accountDAO) {
         this.accountDAO = accountDAO;
+    }
+
+    @Override
+    public void insertAccountInDataBase(Account account) throws SQLException{
+        accountDAO.createAccount(account);
+    }
+
+    @Override
+    public void deleteAccountFromDataBase(Account account) throws SQLException{
+        accountDAO.deleteAccount(account);
     }
 
     @Override

@@ -9,10 +9,10 @@ CREATE TABLE IF NOT EXISTS Client
 CREATE TABLE IF NOT EXISTS Account
 (
     id        INT IDENTITY (1,1) PRIMARY KEY,
-    number    VARCHAR(20) NOT NULL UNIQUE,
+    number    VARCHAR(100) NOT NULL UNIQUE,
     balance   DECIMAL,
     client_id INT   NOT NULL UNIQUE,
-    FOREIGN KEY (client_id) REFERENCES Client (id)
+    FOREIGN KEY (client_id) REFERENCES Client (id) ON DELETE CASCADE
     );
 -- CREATE UNIQUE index account_number_UINDEX ON Account (number);
 
@@ -27,6 +27,6 @@ CREATE TABLE IF NOT EXISTS Card
     balance    DECIMAL,
     status     INT DEFAULT 0,
     account_id INT         NOT NULL,
-    FOREIGN KEY (account_id) REFERENCES Account (id)
+    FOREIGN KEY (account_id) REFERENCES Account (id) ON DELETE CASCADE
     );
 -- CREATE UNIQUE index card_number_UINDEX ON Card (number);

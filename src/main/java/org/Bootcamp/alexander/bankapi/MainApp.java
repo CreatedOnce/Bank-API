@@ -29,6 +29,8 @@ public class MainApp {
 
             server.createContext("/card/order", new CardHandler(cardService));
             server.createContext("/card/view", new CardHandler(cardService));
+            server.createContext("/account/create", new AccountHandler(accountService));
+            server.createContext("/account/delete", new AccountHandler(accountService));
             server.createContext("/account/pay", new AccountHandler(accountService));
             server.createContext("/account/balance", new AccountHandler(accountService));
 

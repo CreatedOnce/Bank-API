@@ -12,6 +12,7 @@ import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 import org.Bootcamp.alexander.bankapi.exception.AccountNotFoundException;
 import org.Bootcamp.alexander.bankapi.model.Card;
 import org.Bootcamp.alexander.bankapi.service.AccountService;
+import org.Bootcamp.alexander.bankapi.model.Account;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -96,6 +97,65 @@ public class AccountHandler implements HttpHandler, ResponseSender {
 
                 // Если все корректно
                 response = "Balance replenished.".getBytes(StandardCharsets.UTF_8);
+                sendResponse(exchange, 200, response);
+            } else{
+                if(exchange.getRequestURI().getPath().equals("/account/create")){
+                    byte[] response;
+
+                    try {
+                        Account account = new ObjectMapper().readValue(exchange.getRequestBody(), Account.class);
+                        accountService.insertAccountInDataBase(account);
+                    } catch (JsonMappingException ex) {
+                        response = "Wrong number of parameters.".getBytes(StandardCharsets.UTF_8);
+                        sendResponse(exchange, 400, response);
+                        return;
+                    } catch (JsonParseException ex) {
+                        response = "Incorrect data.".getBytes(StandardCharsets.UTF_8);
+                        sendResponse(exchange, 400, response);
+                        return;
+                    } catch (AccountNotFoundException ex) {
+                        response = "Account already exists.".getBytes(StandardCharsets.UTF_8);
+                        sendResponse(exchange, 404, response);
+                        return;
+                    } catch (SQLException ex) {
+                    response = ex.getMessage().getBytes(StandardCharsets.UTF_8);
+                    sendResponse(exchange, 500, response);
+                    return;
+                }
+
+                    // Если все корректно
+                    response = "Account created.".getBytes(StandardCharsets.UTF_8);
+                    sendResponse(exchange, 200, response);
+                }
+            }
+        } if (exchange.getRequestMethod().equals("DELETE")) {
+
+            if (exchange.getRequestURI().getPath().equals("/account/delete")) {
+                byte[] response;
+
+                try {
+                    Account account = new ObjectMapper().readValue(exchange.getRequestBody(), Account.class);
+                    accountService.deleteAccountFromDataBase(account);
+                } catch (SQLException ex) {
+                    response = ex.getMessage().getBytes(StandardCharsets.UTF_8);
+                    sendResponse(exchange, 500, response);
+                    return;
+                }catch (JsonMappingException ex) {
+                    response = "Wrong number of parameters.".getBytes(StandardCharsets.UTF_8);
+                    sendResponse(exchange, 400, response);
+                    return;
+                } catch (JsonParseException ex) {
+                    response = "Incorrect data.".getBytes(StandardCharsets.UTF_8);
+                    sendResponse(exchange, 400, response);
+                    return;
+                } catch (AccountNotFoundException ex) {
+                    response = "Account already deleted.".getBytes(StandardCharsets.UTF_8);
+                    sendResponse(exchange, 404, response);
+                    return;
+                }
+
+                // Если все корректно
+                response = ("Account "  +"successfully deleted!").getBytes(StandardCharsets.UTF_8);
                 sendResponse(exchange, 200, response);
             }
         } else {

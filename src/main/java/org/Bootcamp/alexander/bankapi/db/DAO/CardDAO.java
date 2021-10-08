@@ -7,5 +7,6 @@ import java.sql.SQLException;
 
 public interface CardDAO {
     void create(Card card) throws SQLException;
+    void deleteCard(Card card) throws SQLException;
     ArrayNode getCards() throws SQLException;
 }
